@@ -7,10 +7,19 @@ $id = null;
 if(isset($_GET["id"])) {
     $id = $_GET["id"];
 
+
     require_once "..\base.php";
     require_once BASE_PROJET."/src/database/db-films.php";
 
     $details = getDetails($id);
+}
+
+if ($details===[]){
+    header("Location: message_erreur.php");
+    exit();
+}else{
+    header("Location: message_erreur.php");
+    exit();
 }
 
 $temps=$details[0]["durée"];

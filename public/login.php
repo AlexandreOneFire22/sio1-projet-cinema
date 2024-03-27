@@ -14,17 +14,13 @@ require_once "../base.php";
 require_once BASE_PROJET."\src\config\db_config.php";
 require_once BASE_PROJET."\src\database\db-utilisateurs.php";
 
+
 $pdo=getConnexion();
-
-$emails = getUtilisateur();
-
 
 
 $erreurs = [];
-$pseudo = "";
 $email = "";
 $mdp = "";
-$mdpVerif = "";
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     //le formulaire à été soumis !
@@ -32,54 +28,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     //Récupérer les valeur saisie par l'utilisateur
     // Superglobale $_POST : tableau associatif
 
-    $pseudo = $_POST["pseudo_utilisateur"];
     $email = $_POST["email_utilisateur"];
     $mdp = $_POST["mdp_utilisateur"];
-    $mdpVerif = $_POST["mdpVerif"];
 
-    //Validation des données
-    if (empty($pseudo)) {
-        $erreurs ["pseudo_utilisateur"] = "Le pseudo est obligatoire.";
-    }
+
+    $emails = getVerifieEmail($email);
+
+
     if (empty($email)) {
         $erreurs ["email_utilisateur"] = "L'email est obligatoire.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erreurs ["email_utilisateur"] = "L'email n'est pas valide.";
+    }elseif (empty($emails)){
+        $erreurs ["email_utilisateur"] = "cette adresse email n'est pas utiliser.";
     }
     if (empty($mdp)) {
         $erreurs ["mdp_utilisateur"] = "Le mot de passe est obligatoire.";
-    }
-    if (empty($mdpVerif)) {
-        $erreurs ["mdpVerif"] = "Le mot de passe doit être à nouveau saisie.";
-    }elseif ($mdp!=$mdpVerif){
-        $erreurs ["mdpVerif"] = "Le mot de passe saisie est différent, il doit être identique.";
     }
 
     //Traiter les données
 
     if (empty($erreurs)) {
-        // Traitement des données (exemple insertion dans une base de données)
-        //Redirigé l'utilisateur vers une autre page (la page d'accueil)
 
-//2. Prépareration de la requête
+        $compte=getVerifieEmail($email);
 
-        $mdpHacher=password_hash($mdp,PASSWORD_DEFAULT);
-
-        $requete = "INSERT INTO utilisateur (pseudo_utilisateur,email_utilisateur,mdp_utilisateur) VALUES (?,?,?)";
-        $pdo->prepare($requete)->execute(array(
-            "pseudo_utilisateur" => $pseudo,
-            "email_utilisateur" => $email,
-            "mdp_utilisateur" => $mdpHacher,
-        ));
+        if (password_verify($mdp,$compte[0]["mdp_utilisateur"])){
+            header("Location: index.php");
+            exit();
+        }else{
+            $erreurs["mdp_utilisateur"] = "mot de passe erroné";
+        }
 
 
-        //$requete = $pdo->prepare("INSERT INTO utilisateur VALUES ($pseudo, $email, $mdpHacher)");
-
-//3. Exécution de la requête
-        //$requete->execute();
-
-        header("Location: index.php");
-        exit();
     }
 
 }
@@ -103,69 +83,38 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 <?php require_once BASE_PROJET."\src\_partials\header.php" ?>
 
 <div class="container">
-    <h3 class="ms-5">Formulaire :</h3>
+    <h3 class="ms-5">Se connecter :</h3>
 
     <div class="w-75 mx-auto">
         <form action="" method="post" novalidate>
 
             <div class="mb-3">
-                <label for="pseudo" class="form-label">Pseudo* :</label>
-                <input type="text"
-                       class="form-control <?= (isset($erreurs["pseudo_utilisateur"])) ? "border border-2 border-danger" : "" ?>"
-                       id="pseudo"
-                       name="pseudo_utilisateur"
-                       value="<?= $pseudo ?>"
-                       placeholder="Saisissez votre pseudo">
-
-                <?php if (isset($erreurs["pseudo_utilisateur"])) : ?>
-
-                    <p class="form-text text-danger"> <?= $erreurs["pseudo_utilisateur"] ?></p>
-
-                <?php endif; ?>
-            </div>
-
-            <div class="mb-3">
                 <label for="email" class="form-label">Email* :</label>
                 <input type="text"
-                       class="form-control <?= (isset($erreurs["email_utilisateur"])) ? "border border-2 border-danger" : "" ?>"
+                       class="form-control <?= (!empty($erreurs) ? "border border-2 border-danger" : "") ?>"
                        id="email"
-                       name="email_utilisateur" value="<?= $email ?>" placeholder="Saisissez votre email"
+                       name="email_utilisateur" placeholder="Saisissez votre email"
                        aria-describedby="emailHelp">
-
-                <?php if (isset($erreurs["email_utilisateur"])) : ?>
-
-                    <p class="form-text text-danger"> <?= $erreurs["email_utilisateur"] ?></p>
-
-                <?php endif; ?>
             </div>
 
             <div class="mb-3">
                 <label for="mdp" class="form-label">mot de passe* :</label>
                 <input type="password"
-                       class="form-control <?= (isset($erreurs["mdp_utilisateur"])) ? "border border-2 border-danger" : "" ?>"
+                       class="form-control <?= (!empty($erreurs) ? "border border-2 border-danger" : "") ?>"
                        id="mdp" name="mdp_utilisateur" placeholder="Saisissez votre mot de passe">
 
-                <?php if (isset($erreurs["mdp_utilisateur"])) : ?>
+                <?php if (!empty($erreurs)) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["mdp_utilisateur"] ?></p>
-
-                <?php endif; ?>
-            </div>
-
-            <div class="mb-3">
-                <label for="mdpVerif" class="form-label"> confirmé votre mot de passe* :</label>
-                <input type="password"
-                       class="form-control <?= (isset($erreurs["mdpVerif"])) ? "border border-2 border-danger" : "" ?>"
-                       id="mdpVerif" name="mdpVerif" placeholder="Saisissez à nouveau votre mot de passe">
-
-                <?php if (isset($erreurs["mdpVerif"])) : ?>
-
-                    <p class="form-text text-danger"> <?= $erreurs["mdpVerif"] ?></p>
+                    <p class="form-text text-danger"> L'adresse mail ou le mot de passe sont incorrect.</p>
 
                 <?php endif; ?>
+
             </div>
 
-            <button type="submit" class="btn btn-primary mt-3">Valider</button>
+            <span class="d-flex justify-content-evenly">
+                <button type="submit" class="btn btn-primary mt-3">Valider</button>
+            </span>
+
         </form>
     </div>
 </div>

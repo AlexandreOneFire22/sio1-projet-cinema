@@ -43,12 +43,16 @@ $nb=0;
             $minute=$temps%60;
             $heure=($temps-$minute)/60;
 
+            if ($minute<=10){
+                $minute="0$minute";
+            }
+
             $temps="$heure H $minute"
         ?>
 
 
         <div class="col col-12 col-md-6 col-xl-3 h-100">
-            <div class="card mb-3 m-4">
+            <div class="card mb-3 m-4" style="height: 630px">
                 <img src="<?= $films[$i]["image"] ?>" class="card-img-top p-0 p-2 img-fluid">
                 <div class="card-body w-100">
                     <h5 class="card-title text-blanc"><?= $films[$i]["titre"] ?></h5>
