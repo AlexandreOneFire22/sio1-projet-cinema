@@ -11,12 +11,24 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link fs-3 text-blanc" href="creerCompte.php">|créer un compte| </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link fs-3 text-blanc" href="login.php">|se connecter|</a>
-                        </li>
+                        <?php if (isset($pseudo)): ?>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle fs-3 text-blanc me-4" href="#" role="button" data-bs-toggle="dropdown">
+                                    <?= $pseudo ?>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="ajouter_film.php">Ajouter un film</a></li>
+                                    <li><a class="dropdown-item" href="deconnecter.php">Se déconnecter</a></li>
+                                </ul>
+                            </li>
+                        <?php else: ?>
+                            <li class="nav-item">
+                                <a class="nav-link fs-3 text-blanc" href="creerCompte.php">|créer un compte| </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fs-3 text-blanc" href="login.php">|se connecter|</a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </div>
         </div>

@@ -16,3 +16,11 @@ function getDetails($id):array
     $requete = $pdo->query("SELECT * FROM film WHERE id = $id");
     return $requete->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function EnvoyerFormulaire($titre,$duree,$resume,$date_sortie,$pays,$image):array{
+    $pdo = getConnexion();
+    $requete = $pdo->query("INSERT INTO `film` (`id`, `titre`, `durée`, `résumé`, `date_sortie`, `pays`, `image`,) 
+            VALUES (NULL, '$titre', '$duree', '$resume', '$date_sortie', '$pays', '$image');");
+
+    return $requete->fetchAll(PDO::FETCH_ASSOC);
+}

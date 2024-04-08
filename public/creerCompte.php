@@ -11,7 +11,6 @@
 
 
 require_once "../base.php";
-require_once BASE_PROJET."\src\config\db_config.php";
 require_once BASE_PROJET."\src\database\db-utilisateurs.php";
 
 $pdo=getConnexion();
@@ -20,7 +19,7 @@ $pdo=getConnexion();
 
 
 $erreurs = [];
-$pseudo = "";
+$pseudo = null;
 $email = "";
 $mdp = "";
 $mdpVerif = "";
@@ -69,6 +68,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $mdpHacher=password_hash($mdp,PASSWORD_DEFAULT);
 
         EnvoyerFormulaire($pseudo,$email,$mdpHacher);
+
+        session_start();
+        $_SESSION["pseudo"] = $pseudo;
 
         header("Location: index.php");
         exit();

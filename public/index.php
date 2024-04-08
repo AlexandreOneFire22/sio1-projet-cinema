@@ -3,9 +3,16 @@
 require_once "../base.php";
 require_once BASE_PROJET."\src\database\db-films.php";
 
+session_start();
+
+$pseudo = null;
+if (isset ($_SESSION["pseudo"])) {
+    $pseudo = $_SESSION["pseudo"];
+}
+
+
 $films=getFilms();
 
-$nb=0;
 ?>
 
 <style>

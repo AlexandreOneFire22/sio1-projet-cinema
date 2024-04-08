@@ -11,7 +11,6 @@
 
 
 require_once "../base.php";
-require_once BASE_PROJET."\src\config\db_config.php";
 require_once BASE_PROJET."\src\database\db-utilisateurs.php";
 
 
@@ -53,6 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $compte=getVerifieEmail($email);
 
         if (password_verify($mdp,$compte[0]["mdp_utilisateur"])){
+            session_start();
+            $_SESSION["pseudo"] = $compte[0]["pseudo_utilisateur"];
+
             header("Location: index.php");
             exit();
         }else{
