@@ -10,14 +10,20 @@ if(isset($_GET["id"])) {
 
     require_once "..\base.php";
     require_once BASE_PROJET."/src/database/db-films.php";
+    require_once BASE_PROJET."\src\database\db-utilisateurs.php";
+
+    session_start();
+
+    $pseudo = null;
+    if (isset ($_SESSION["pseudo"])) {
+        $pseudo = $_SESSION["pseudo"];
+    }
+
 
     $details = getDetails($id);
 }
 
 if ($details===[]){
-    header("Location: message_erreur.php");
-    exit();
-}else{
     header("Location: message_erreur.php");
     exit();
 }
@@ -38,6 +44,11 @@ $dateImplode=explode("-",$details[0]["date_sortie"]);
 
 $date= implode("/",array_reverse($dateImplode));
 
+if ($_SESSION["id_utilisateur"]==0) {
+    $pseudoFilm = "Admin";
+}else{
+    $pseudoFilm = getPseudoByIdUtilisateur($_SESSION["id_utilisateur"]);
+}
 
 
 ?>
@@ -75,6 +86,15 @@ $date= implode("/",array_reverse($dateImplode));
                     <div><i class="bi bi-clock"></i>  : <?= $temps ?></div>
                     <div> <i class="bi bi-globe-americas"></i>  : <?= $details[0]["pays"] ?></div>
                     <div> <i class="bi bi-calendar-event"></i>  : <?= $date ?></div>
+
+                </div>
+            </div>
+
+
+            <div class="mt-auto p-2">
+                <div class="d-flex justify-content-evenly">
+
+                    <div><i class="bi bi-person-fill"></i>  : <?= $details[0]["id_utilisateur"] ?></div>
 
                 </div>
             </div>

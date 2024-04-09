@@ -17,10 +17,10 @@ function getDetails($id):array
     return $requete->fetchAll(PDO::FETCH_ASSOC);
 }
 
-function EnvoyerFormulaire($titre,$duree,$resume,$date_sortie,$pays,$image):array{
+function EnvoyerFormulaire($titre,$duree,$resume,$date_sortie,$pays,$image,$id_utilisateur):array{
     $pdo = getConnexion();
-    $requete = $pdo->query("INSERT INTO `film` (`id`, `titre`, `durée`, `résumé`, `date_sortie`, `pays`, `image`,) 
-            VALUES (NULL, '$titre', '$duree', '$resume', '$date_sortie', '$pays', '$image');");
+    $requete = $pdo->query("INSERT INTO `film` (`id`, `titre`, `durée`, `résumé`, `date_sortie`, `pays`, `image`, `id_utilisateur`,) 
+            VALUES (NULL, '$titre', '$duree', '$resume', '$date_sortie', '$pays', '$image' '$id_utilisateur');");
 
     return $requete->fetchAll(PDO::FETCH_ASSOC);
 }

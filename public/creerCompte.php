@@ -40,6 +40,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     //Validation des données
     if (empty($pseudo)) {
         $erreurs ["pseudo_utilisateur"] = "Le pseudo est obligatoire.";
+    } elseif (strtolower($pseudo)=="admin"){
+        $erreurs ["pseudo_utilisateur"] = "Le pseudo $pseudo ne peut pas être utilisé.";
     }
     if (empty($email)) {
         $erreurs ["email_utilisateur"] = "L'email est obligatoire.";
@@ -69,8 +71,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         EnvoyerFormulaire($pseudo,$email,$mdpHacher);
 
+        $compte = getVerifieEmail($email);
+
         session_start();
-        $_SESSION["pseudo"] = $pseudo;
+        $_SESSION["pseudo"] = $compte[0]["pseudo_utilisateur"];
+        $_SESSION["id_utilisateur"] = $compte[0]["id_utilisateur"];
 
         header("Location: index.php");
         exit();

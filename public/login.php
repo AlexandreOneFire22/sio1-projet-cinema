@@ -54,6 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         if (password_verify($mdp,$compte[0]["mdp_utilisateur"])){
             session_start();
             $_SESSION["pseudo"] = $compte[0]["pseudo_utilisateur"];
+            $_SESSION["id_utilisateur"] = $compte[0]["id_utilisateur"];
 
             header("Location: index.php");
             exit();

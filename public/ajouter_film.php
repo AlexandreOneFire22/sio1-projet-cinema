@@ -11,7 +11,16 @@
 
 
 require_once "../base.php";
-require_once BASE_PROJET."\src\database\db-film.php";
+require_once BASE_PROJET."\src\database\db-films.php";
+
+session_start();
+
+$pseudo = null;
+if (isset ($_SESSION["pseudo"])) {
+    $pseudo = $_SESSION["pseudo"];
+    $id_utilisateur = $_SESSION["id_utilisateur"];
+}
+
 
 $pdo=getConnexion();
 
@@ -68,7 +77,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 //2. Prépareration de la requête
 
-        EnvoyerFormulaire($titre,$duree,$resume,$date_sortie,$pays,$image);
+        EnvoyerFormulaire($titre,$duree,$resume,$date_sortie,$pays,$image,$id_utilisateur);
 
         header("Location: index.php");
         exit();
@@ -134,42 +143,74 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 
 
-
-
-
-
-
-
-
-
             <div class="mb-3">
-                <label for="résumé" class="form-label">Titre* :</label>
+                <label for="résumé" class="form-label">Résumé* :</label>
                 <input type="text"
-                       class="form-control <?= (isset($erreurs["titre"])) ? "border border-2 border-danger" : "" ?>"
-                       id="titre"
-                       name="titre"
-                       value="<?= $titre ?>"
-                       placeholder="Saisissez le titre">
+                       class="form-control <?= (isset($erreurs["résumé"])) ? "border border-2 border-danger" : "" ?>"
+                       id="résumé"
+                       name="résumé"
+                       value="<?= $resume ?>"
+                       placeholder="Saisissez le résumé">
 
-                <?php if (isset($erreurs["titre"])) : ?>
+                <?php if (isset($erreurs["résumé"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["titre"] ?></p>
+                    <p class="form-text text-danger"> <?= $erreurs["résumé"] ?></p>
 
                 <?php endif; ?>
             </div>
+
 
             <div class="mb-3">
-                <label for="mdpVerif" class="form-label"> confirmé votre mot de passe* :</label>
-                <input type="password"
-                       class="form-control <?= (isset($erreurs["mdpVerif"])) ? "border border-2 border-danger" : "" ?>"
-                       id="mdpVerif" name="mdpVerif" placeholder="Saisissez à nouveau votre mot de passe">
+                <label for="date_sortie" class="form-label">Date de sortie* :</label>
+                <input type="text"
+                       class="form-control <?= (isset($erreurs["date_sortie"])) ? "border border-2 border-danger" : "" ?>"
+                       id="date_sortie"
+                       name="date_sortie"
+                       value="<?= $date_sortie ?>"
+                       placeholder="Saisissez la date de sortie">
 
-                <?php if (isset($erreurs["mdpVerif"])) : ?>
+                <?php if (isset($erreurs["date_sortie"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["mdpVerif"] ?></p>
+                    <p class="form-text text-danger"> <?= $erreurs["date_sortie"] ?></p>
 
                 <?php endif; ?>
             </div>
+
+
+            <div class="mb-3">
+                <label for="pays" class="form-label">Pays* :</label>
+                <input type="text"
+                       class="form-control <?= (isset($erreurs["pays"])) ? "border border-2 border-danger" : "" ?>"
+                       id="pays"
+                       name="pays"
+                       value="<?= $pays ?>"
+                       placeholder="Saisissez le pays">
+
+                <?php if (isset($erreurs["pays"])) : ?>
+
+                    <p class="form-text text-danger"> <?= $erreurs["pays"] ?></p>
+
+                <?php endif; ?>
+            </div>
+
+
+            <div class="mb-3">
+                <label for="image" class="form-label">Image (url)* :</label>
+                <input type="text"
+                       class="form-control <?= (isset($erreurs["image"])) ? "border border-2 border-danger" : "" ?>"
+                       id="image"
+                       name="image"
+                       value="<?= $image ?>"
+                       placeholder="Saisissez l'url de l'image">
+
+                <?php if (isset($erreurs["image"])) : ?>
+
+                    <p class="form-text text-danger"> <?= $erreurs["image"] ?></p>
+
+                <?php endif; ?>
+            </div>
+
+
             <span class="d-flex justify-content-evenly">
                 <button type="submit" class="btn btn-primary mt-3">Valider</button>
             </span>
