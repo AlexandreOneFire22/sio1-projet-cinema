@@ -44,10 +44,10 @@ $dateImplode=explode("-",$details[0]["date_sortie"]);
 
 $date= implode("/",array_reverse($dateImplode));
 
-if ($_SESSION["id_utilisateur"]==0) {
+if ($details[0]["id_utilisateur"]==0) {
     $pseudoFilm = "Admin";
 }else{
-    $pseudoFilm = getPseudoByIdUtilisateur($_SESSION["id_utilisateur"]);
+    $pseudoFilm = getPseudoByIdUtilisateur($details[0]["id_utilisateur"]);
 }
 
 
@@ -92,9 +92,9 @@ if ($_SESSION["id_utilisateur"]==0) {
 
 
             <div class="mt-auto p-2">
-                <div class="d-flex justify-content-evenly">
+                <div class="d-flex justify-content-end me-5 pe-5">
 
-                    <div><i class="bi bi-person-fill"></i>  : <?= $details[0]["id_utilisateur"] ?></div>
+                    <div><i class="bi bi-person-fill"></i>  : <?= $pseudoFilm ?></div>
 
                 </div>
             </div>

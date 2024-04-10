@@ -69,6 +69,15 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreurs ["image"] = "L'image est obligatoire.";
     }
 
+    $dateFilmExplode=explode(" ",$date_sortie);
+    $date_sortie=implode("-",array_reverse($dateFilmExplode));
+
+    $verif=getMemeFilm($titre,$date_sortie);
+
+    if (!empty($verif)){
+        $erreurs ["titre"] = "Ce film est déjà présent dans notre catalogue";
+    }
+
     //Traiter les données
 
     if (empty($erreurs)) {
@@ -77,10 +86,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 //2. Prépareration de la requête
 
-        EnvoyerFormulaire($titre,$duree,$resume,$date_sortie,$pays,$image,$id_utilisateur);
+
+        EnvoyerFormulaireFilm($titre,$duree,$resume,$date_sortie,$pays,$image,$id_utilisateur);
 
         header("Location: index.php");
         exit();
+
+
     }
 
 }
@@ -132,7 +144,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                        id="durée"
                        name="durée"
                        value="<?= $duree ?>"
-                       placeholder="Saisissez la durée sous la forme JJ MM AAAA">
+                       placeholder="Saisissez la durée en minute exemple : 90">
 
                 <?php if (isset($erreurs["durée"])) : ?>
 
@@ -167,7 +179,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                        id="date_sortie"
                        name="date_sortie"
                        value="<?= $date_sortie ?>"
-                       placeholder="Saisissez la date de sortie">
+                       placeholder="Saisissez la date de sortie sous la forme JJ MM AAAA">
 
                 <?php if (isset($erreurs["date_sortie"])) : ?>
 
