@@ -72,7 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $erreurs ["image"] = "L'image est obligatoire.";
     }
 
-    $dateFilmExplode=explode(" ",$date_sortie);
+    $dateFilmExplode=explode("/",$date_sortie);
     $date_sortie=implode("-",array_reverse($dateFilmExplode));
 
     $verif=getMemeFilm($titre,$date_sortie);
@@ -177,7 +177,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
             <div class="mb-3">
                 <label for="date_sortie" class="form-label">Date de sortie* :</label>
-                <input type="text"
+                <input type="date"
                        class="form-control <?= (isset($erreurs["date_sortie"])) ? "border border-2 border-danger" : "" ?>"
                        id="date_sortie"
                        name="date_sortie"

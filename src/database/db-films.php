@@ -35,3 +35,10 @@ function getMemeFilm($titre,$date_sortie):array
     $requete = $pdo->query("SELECT * FROM film WHERE titre LIKE '$titre' AND date_sortie LIKE '$date_sortie'");
     return $requete->fetchAll(PDO::FETCH_ASSOC);
 }
+
+function getFilmsUtilisateur($id):array
+{
+    $pdo = getConnexion();
+    $requete = $pdo->query("SELECT * FROM film WHERE id_utilisateur = $id");
+    return $requete->fetchAll(PDO::FETCH_ASSOC);
+}

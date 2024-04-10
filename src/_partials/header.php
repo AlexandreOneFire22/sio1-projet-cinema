@@ -18,6 +18,8 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="ajouter_film.php">Ajouter un film</a></li>
+                                    <li><a class="dropdown-item" href="listeFilmUtilisateur.php">Liste de mes films</a></li>
+                                    <li>----------------------------------------</li>
                                     <li><a class="dropdown-item" href="deconnecter.php">Se déconnecter</a></li>
                                 </ul>
                             </li>
