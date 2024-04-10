@@ -11,13 +11,13 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto">
-                        <?php if (isset($pseudo)): ?>
+                        <?php if (isset($_SESSION["pseudo"])): ?>
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle fs-3 text-blanc me-4" href="#" role="button" data-bs-toggle="dropdown">
-                                    <?= $pseudo ?>
+                                    <?= $_SESSION["pseudo"] ?>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a class="dropdown-item" href="ajouter_film.php">Ajouter un film</a></li>
+                                    <li><a class="dropdown-item" href="ajouterFilm.php">Ajouter un film</a></li>
                                     <li><a class="dropdown-item" href="listeFilmUtilisateur.php">Liste de mes films</a></li>
                                     <li>----------------------------------------</li>
                                     <li><a class="dropdown-item" href="deconnecter.php">Se déconnecter</a></li>

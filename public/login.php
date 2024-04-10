@@ -13,9 +13,16 @@
 require_once "../base.php";
 require_once BASE_PROJET."\src\database\db-utilisateurs.php";
 
+session_start();
 
 $pdo=getConnexion();
 
+if (!empty($_SESSION["pseudo"])){
+    $_SESSION["message_erreur"]= "Vous êtes déjà connecter, déconnecter vous pour accèder à la page de connection.";
+    header("Location: messageErreur.php");
+    exit();
+
+}
 
 $erreurs = [];
 $email = "";
@@ -31,14 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $mdp = $_POST["mdp_utilisateur"];
 
 
-    $emails = getVerifieEmail($email);
+    $compte = getVerifieEmail($email);
 
 
     if (empty($email)) {
         $erreurs ["email_utilisateur"] = "L'email est obligatoire.";
     } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $erreurs ["email_utilisateur"] = "L'email n'est pas valide.";
-    }elseif (empty($emails)){
+    }elseif (empty($compte)){
         $erreurs ["email_utilisateur"] = "cette adresse email n'est pas utiliser.";
     }
     if (empty($mdp)) {
@@ -49,10 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
     if (empty($erreurs)) {
 
-        $compte=getVerifieEmail($email);
-
         if (password_verify($mdp,$compte[0]["mdp_utilisateur"])){
-            session_start();
             $_SESSION["pseudo"] = $compte[0]["pseudo_utilisateur"];
             $_SESSION["id_utilisateur"] = $compte[0]["id_utilisateur"];
 
@@ -108,7 +112,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (!empty($erreurs)) : ?>
 
-                    <p class="form-text text-danger"> L'adresse mail ou le mot de passe sont incorrect.</p>
+                    <p class="form-text fs-5 text-rouge"> L'adresse mail ou le mot de passe sont incorrect.</p>
 
                 <?php endif; ?>
 

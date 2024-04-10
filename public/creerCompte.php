@@ -13,6 +13,17 @@
 require_once "../base.php";
 require_once BASE_PROJET."\src\database\db-utilisateurs.php";
 
+session_start();
+
+if (!empty($_SESSION["pseudo"])){
+    $_SESSION["message_erreur"] = "Vous êtes déjà connecter, déconnecter vous pour accèder à la page de création de compte";
+    header("Location: messageErreur.php");
+    exit();
+
+}
+
+
+
 $pdo=getConnexion();
 
 
@@ -73,7 +84,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
         $compte = getVerifieEmail($email);
 
-        session_start();
+        echo "TEST";
+
         $_SESSION["pseudo"] = $compte[0]["pseudo_utilisateur"];
         $_SESSION["id_utilisateur"] = $compte[0]["id_utilisateur"];
 
@@ -118,7 +130,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (isset($erreurs["pseudo_utilisateur"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["pseudo_utilisateur"] ?></p>
+                    <p class="form-text fs-5 text-rouge"> <?= $erreurs["pseudo_utilisateur"] ?></p>
 
                 <?php endif; ?>
             </div>
@@ -133,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (isset($erreurs["email_utilisateur"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["email_utilisateur"] ?></p>
+                    <p class="form-text fs-5 text-rouge"> <?= $erreurs["email_utilisateur"] ?></p>
 
                 <?php endif; ?>
             </div>
@@ -146,7 +158,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (isset($erreurs["mdp_utilisateur"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["mdp_utilisateur"] ?></p>
+                    <p class="form-text fs-5 text-rouge"> <?= $erreurs["mdp_utilisateur"] ?></p>
 
                 <?php endif; ?>
             </div>
@@ -159,7 +171,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (isset($erreurs["mdpVerif"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["mdpVerif"] ?></p>
+                    <p class="form-text fs-5 text-rouge"> <?= $erreurs["mdpVerif"] ?></p>
 
                 <?php endif; ?>
             </div>

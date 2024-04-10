@@ -24,7 +24,8 @@ if(isset($_GET["id"])) {
 }
 
 if ($details===[]){
-    header("Location: message_erreur.php");
+    $_SESSION["message_erreur"] = "Le film demander n'éxiste pas ou n'éxiste plus.";
+    header("Location: messageErreur.php");
     exit();
 }
 
@@ -103,6 +104,52 @@ if ($details[0]["id_utilisateur"]==0) {
     </div>
 
 </section>
+
+<div class="container bg-light p-3 mb-5">
+
+    <h3 class="text-center fw-semibold"><i class="bi bi-stars"></i> Avis</h3>
+
+    <a href="commentaireFilm.php?id=<?=$id?>" class="btn btn-primary mx-2 text-blanc mb-3">commentaire</a>
+
+    <p class="text-center">Ce que les utilisateurs pensent du jeu...</p>
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i
+                    class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i>
+
+            <h5> La VR c'est super :)</h5>
+
+            <p> Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus blanditiis consectetur distinctio
+                dolorem dolorum ducimus eaque illo, labore laboriosam maiores numquam officiis omnis pariatur quaerat
+                quos rerum ut veniam vitae. </p>
+
+            <div class="text-secondary">Avis de Ethan le 01/09/2023</div>
+        </li>
+
+        <li class="list-group-item">
+            <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i
+                    class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i>
+
+            <h5> La VR c'est super :)</h5>
+
+            <p>Rien de plus à rajouter, la VR c'est génial :)</p>
+
+            <div class="text-secondary">Avis de Ethan le 01/09/2023</div>
+        </li>
+
+        <li class="list-group-item">
+            <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i> <i
+                    class="bi bi-star-fill"></i> <i class="bi bi-star-fill"></i>
+
+            <h5> La VR c'est super :)</h5>
+
+            <p>Rien de plus à rajouter, la VR c'est génial :)</p>
+
+            <div class="text-secondary">Avis de Ethan le 01/09/2023</div>
+        </li>
+    </ul>
+</div>
 
 
 

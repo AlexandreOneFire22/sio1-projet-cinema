@@ -10,7 +10,9 @@ if (isset ($_SESSION["pseudo"])) {
     $pseudo = $_SESSION["pseudo"];
     $id_utilisateur = $_SESSION["id_utilisateur"];
 }else{
-    header("Location: message_erreur.php");
+
+    $_SESSION["message_erreur"]= "Vous n'êtes pas connecté, connecté vous à un compte ou créer en un pour accèder à votre liste de film.";
+    header("Location: messageErreur.php");
     exit();
 }
 

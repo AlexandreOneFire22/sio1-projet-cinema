@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 10 avr. 2024 à 08:22
+-- Généré le : mer. 10 avr. 2024 à 11:24
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -54,7 +54,9 @@ INSERT INTO `film` (`id`, `titre`, `durée`, `résumé`, `date_sortie`, `pays`, 
 (10, 'Purple-Man', 140, 'Ce nouveau marvel est basé sur une histoire vrai d\'un super méchant qui contrôle la couleur violette, il s\'en servira pour faire le mal et principalement volé le sac à main des mamies de New-York.', '2016-01-01', 'Etat-Unis', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ1yRPgqtw85n7Yo8E6uUbMJZJfWSGvJqxd4R9ch_JConh7z1Cd2yO-J4EUshDzJMMVhDI&usqp=CAU', 0),
 (11, 'Pascalou, la naissance du mal', 169, 'Durant son enfance, Pascalou Ramseyer semble nager dans l\'incompréhension de ses proches. Ce sentiment le poursuivra même jusqu\'au rejet de sa candidature à la formation des enseignants du site de Besançon. Désœuvré, il accueille la déclaration de guerre avec enthousiasme et se hisse jusqu\'au grade de caporal. Victime d\'une attaque au gaz, il est hospitalisé jusqu\'à la fin de la guerre puis démobilisé. À la fin du conflit, il commence à s\'investir dans le monde de la politique, et également à se faire connaître en France, grâce à son parti : le Parti national-socialiste des travailleurs français. ', '2024-03-18', 'France', 'https://i.pinimg.com/736x/07/74/81/077481a7c8ae1b027e790539f9d7f6ac.jpg', 0),
 (12, 'Méteastro, le début de la fin', 90, 'Le site web Méteastro fût la cause de la 3ème guerre mondial, celle-ci mena le monde à sa perte.', '2024-03-16', 'France', 'https://i.pinimg.com/736x/0c/c9/b4/0cc9b4acd303bf26f5f9f8c9d83b3e63.jpg', 0),
-(13, 'La révolte des outils de jardinage', 120, 'Les outils de jardinage en on marre de se sentir utiliser, c\'est pourquoi ils ont décidé de se révolté et d’éradiqué l\'humanité.', '2024-03-01', 'Allemagne', 'https://wallpapercave.com/wp/wp6078799.jpg', 0);
+(13, 'La révolte des outils de jardinage', 120, 'Les outils de jardinage en on marre de se sentir utiliser, c\'est pourquoi ils ont décidé de se révolté et d’éradiqué l\'humanité.', '2024-03-01', 'Allemagne', 'https://wallpapercave.com/wp/wp6078799.jpg', 0),
+(19, 'Good Boy~', 62, 'C\'est l\'histoire d\'un bon Good Boy~', '2024-04-10', 'France', 'https://i.pinimg.com/736x/a5/ae/1d/a5ae1d250d4c8fe28b39225224a70d8d.jpg', 7),
+(20, 'Alastor', 95, 'Alastor, démon de la radio, malgré ça puissance il garde constament le sourire. Pourtant......dans son ombre parfois son grand sourire n\'est plus.', '2013-07-13', 'France', 'https://e1.pxfuel.com/desktop-wallpaper/881/337/desktop-wallpaper-vertical-space-space.jpg', 7);
 
 -- --------------------------------------------------------
 
@@ -80,7 +82,8 @@ INSERT INTO `utilisateur` (`id_utilisateur`, `pseudo_utilisateur`, `email_utilis
 (6, 'alexandre', 'alexandre@gmail.com', '$2y$10$.hFxN5chVgyy9Dpi99h5suZW7d/8wEowuveO84jDsC7ivtXD4XV8u'),
 (7, 'Ethan <3', 'ethancoeur@gmail.com', '$2y$10$V36FULHkdvfGywa/jsxZ7OCKpnep3IUAY.oajXQrz5V/U82eb.4qG'),
 (8, 'EthanLeTest', 'ethanletest@gmail.com', '$2y$10$4.sLhNDZ1P6fcpNFJzo6u.9MROAor9VlFdXkfeneKlRzJOYJRFsmq'),
-(9, 'EthanLeTest2', 'ethanletest2@gmail.com', '$2y$10$GKjmVA4pC201Y8w8OgOYlOx356lFE5rW5me829WeQT8A1VpoCQqgy');
+(9, 'EthanLeTest2', 'ethanletest2@gmail.com', '$2y$10$GKjmVA4pC201Y8w8OgOYlOx356lFE5rW5me829WeQT8A1VpoCQqgy'),
+(10, 'toto', 'toto@test.fr', '$2y$10$XBGCIrJbr6z69VzanPJLjebIY2gRRalN3MXbBvfNtvR8hYGEj4OPG');
 
 --
 -- Index pour les tables déchargées
@@ -107,13 +110,13 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT pour la table `film`
 --
 ALTER TABLE `film`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Contraintes pour les tables déchargées

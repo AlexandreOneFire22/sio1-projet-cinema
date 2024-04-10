@@ -20,7 +20,8 @@ if (isset ($_SESSION["pseudo"])) {
     $pseudo = $_SESSION["pseudo"];
     $id_utilisateur = $_SESSION["id_utilisateur"];
 }else{
-    header("Location: message_erreur.php");
+    $_SESSION["message_erreur"] = "Vous n'êtes pas connecté, connecté vous à un compte ou créer en un pour accèder à la page de création de film.";
+    header("Location: messageErreur.php");
     exit();
 }
 
@@ -75,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $dateFilmExplode=explode("/",$date_sortie);
     $date_sortie=implode("-",array_reverse($dateFilmExplode));
 
-    $verif=getMemeFilm($titre,$date_sortie);
+    $verif=getMemeFilm(strtolower($titre),$date_sortie);
 
     if (!empty($verif)){
         $erreurs ["titre"] = "Ce film est déjà présent dans notre catalogue";
@@ -135,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (isset($erreurs["titre"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["titre"] ?></p>
+                    <p class="form-text fs-5 text-rouge"> <?= $erreurs["titre"] ?></p>
 
                 <?php endif; ?>
             </div>
@@ -151,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (isset($erreurs["durée"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["durée"] ?></p>
+                    <p class="form-text fs-5 text-rouge"> <?= $erreurs["durée"] ?></p>
 
                 <?php endif; ?>
             </div>
@@ -169,7 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (isset($erreurs["résumé"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["résumé"] ?></p>
+                    <p class="form-text fs-5 text-rouge"> <?= $erreurs["résumé"] ?></p>
 
                 <?php endif; ?>
             </div>
@@ -186,7 +187,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (isset($erreurs["date_sortie"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["date_sortie"] ?></p>
+                    <p class="form-text fs-5 text-rouge"> <?= $erreurs["date_sortie"] ?></p>
 
                 <?php endif; ?>
             </div>
@@ -203,7 +204,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (isset($erreurs["pays"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["pays"] ?></p>
+                    <p class="form-text fs-5 text-rouge"> <?= $erreurs["pays"] ?></p>
 
                 <?php endif; ?>
             </div>
@@ -220,7 +221,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
                 <?php if (isset($erreurs["image"])) : ?>
 
-                    <p class="form-text text-danger"> <?= $erreurs["image"] ?></p>
+                    <p class="form-text fs-5 text-rouge"> <?= $erreurs["image"] ?></p>
 
                 <?php endif; ?>
             </div>

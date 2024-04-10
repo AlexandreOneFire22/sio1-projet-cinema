@@ -2,6 +2,12 @@
 
 require_once "../base.php";
 
+session_start();
+
+if (!isset($_SESSION["message_erreur"])){
+    $_SESSION["message_erreur"]="Une erreur est survenue.";
+}
+
 ?>
 
 <!doctype html>
@@ -32,7 +38,7 @@ require_once "../base.php";
             </svg>
         </div>
 
-        <h2 class="text-center m-4">Une erreur est survenue.</h2>
+        <h2 class="text-center m-4"><?= $_SESSION["message_erreur"] ?></h2>
 
         <div class="text-center"><a class="btn btn-jaune fs-3 mt-4" href="index.php">redirection....</a> </div>
 
