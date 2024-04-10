@@ -48,6 +48,7 @@ if ($details[0]["id_utilisateur"]==0) {
     $pseudoFilm = "Admin";
 }else{
     $pseudoFilm = getPseudoByIdUtilisateur($details[0]["id_utilisateur"]);
+    $pseudoFilm = $pseudoFilm[0]["pseudo_utilisateur"];
 }
 
 
@@ -78,7 +79,7 @@ if ($details[0]["id_utilisateur"]==0) {
 
             <div> <h1 class="m-3 mx-5"><?= $details[0]["titre"] ?></h1></div>
 
-            <div class="text-center m-3"> <?= $details[0]["résumé"] ?></div>
+            <div class="text-center m-3 mx-5 px-5"> <?= $details[0]["résumé"] ?></div>
 
             <div class="mt-auto p-2">
                 <div class="d-flex justify-content-evenly">

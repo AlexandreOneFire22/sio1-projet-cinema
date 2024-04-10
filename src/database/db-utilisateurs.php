@@ -17,6 +17,6 @@ function EnvoyerFormulaire($pseudo,$email,$mdpHacher):array{
 
 function getPseudoByIdUtilisateur($id_utilisateur):array{
     $pdo = getConnexion();
-    $requete = $pdo->query("SELECT 'pseudo_utilisateur' FROM `utilisateur` WHERE `id_utilisateur` = '$id_utilisateur'");
+    $requete = $pdo->query("SELECT `pseudo_utilisateur` FROM `utilisateur` WHERE `id_utilisateur` = $id_utilisateur");
     return $requete->fetchAll(PDO::FETCH_ASSOC);
 }

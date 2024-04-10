@@ -19,6 +19,9 @@ $pseudo = null;
 if (isset ($_SESSION["pseudo"])) {
     $pseudo = $_SESSION["pseudo"];
     $id_utilisateur = $_SESSION["id_utilisateur"];
+}else{
+    header("Location: message_erreur.php");
+    exit();
 }
 
 
