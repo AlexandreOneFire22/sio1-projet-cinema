@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 10 avr. 2024 à 11:24
+-- Généré le : lun. 29 avr. 2024 à 16:14
 -- Version du serveur : 10.4.32-MariaDB
 -- Version de PHP : 8.2.12
 
@@ -20,6 +20,22 @@ SET time_zone = "+00:00";
 --
 -- Base de données : `db_cinema`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `commentaire`
+--
+
+CREATE TABLE `commentaire` (
+  `id_commentaire` int(11) NOT NULL,
+  `titre` varchar(50) NOT NULL,
+  `avis` text NOT NULL,
+  `note` int(11) NOT NULL,
+  `date` date NOT NULL,
+  `id_utilisateur` int(11) NOT NULL,
+  `id_film` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -83,11 +99,20 @@ INSERT INTO `utilisateur` (`id_utilisateur`, `pseudo_utilisateur`, `email_utilis
 (7, 'Ethan <3', 'ethancoeur@gmail.com', '$2y$10$V36FULHkdvfGywa/jsxZ7OCKpnep3IUAY.oajXQrz5V/U82eb.4qG'),
 (8, 'EthanLeTest', 'ethanletest@gmail.com', '$2y$10$4.sLhNDZ1P6fcpNFJzo6u.9MROAor9VlFdXkfeneKlRzJOYJRFsmq'),
 (9, 'EthanLeTest2', 'ethanletest2@gmail.com', '$2y$10$GKjmVA4pC201Y8w8OgOYlOx356lFE5rW5me829WeQT8A1VpoCQqgy'),
-(10, 'toto', 'toto@test.fr', '$2y$10$XBGCIrJbr6z69VzanPJLjebIY2gRRalN3MXbBvfNtvR8hYGEj4OPG');
+(10, 'toto', 'toto@test.fr', '$2y$10$XBGCIrJbr6z69VzanPJLjebIY2gRRalN3MXbBvfNtvR8hYGEj4OPG'),
+(11, 'dany', 'dany@gmail.com', '$2y$10$.NG9lpGb7GqD0zkxjJXhu.aukmJujGjkHmH82OzojY0d/NXXr.WaK');
 
 --
 -- Index pour les tables déchargées
 --
+
+--
+-- Index pour la table `commentaire`
+--
+ALTER TABLE `commentaire`
+  ADD PRIMARY KEY (`id_commentaire`),
+  ADD KEY `FK_COMMENTAIRE_UTILISATEUR` (`id_utilisateur`),
+  ADD KEY `FK_COMMENTAIRE_FILM` (`id_film`);
 
 --
 -- Index pour la table `film`
@@ -107,6 +132,12 @@ ALTER TABLE `utilisateur`
 --
 
 --
+-- AUTO_INCREMENT pour la table `commentaire`
+--
+ALTER TABLE `commentaire`
+  MODIFY `id_commentaire` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT pour la table `film`
 --
 ALTER TABLE `film`
@@ -116,11 +147,18 @@ ALTER TABLE `film`
 -- AUTO_INCREMENT pour la table `utilisateur`
 --
 ALTER TABLE `utilisateur`
-  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_utilisateur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Contraintes pour les tables déchargées
 --
+
+--
+-- Contraintes pour la table `commentaire`
+--
+ALTER TABLE `commentaire`
+  ADD CONSTRAINT `FK_COMMENTAIRE_FILM` FOREIGN KEY (`id_film`) REFERENCES `film` (`id`),
+  ADD CONSTRAINT `FK_COMMENTAIRE_UTILISATEUR` FOREIGN KEY (`id_utilisateur`) REFERENCES `utilisateur` (`id_utilisateur`);
 
 --
 -- Contraintes pour la table `film`
