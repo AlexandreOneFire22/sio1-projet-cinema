@@ -12,6 +12,7 @@
 
 require_once "../base.php";
 require_once BASE_PROJET."\src\database\db-films.php";
+require_once BASE_PROJET."\src\database\db-commentaire.php";
 
 session_start();
 
