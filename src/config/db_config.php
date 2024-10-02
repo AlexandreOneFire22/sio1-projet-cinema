@@ -2,7 +2,7 @@
 
 const DB_HOST = "localhost:3306";
 
-const DB_NAME = "db_cinema";
+const DB_NAME = "test";
 
 const DB_USER = "root";
 
